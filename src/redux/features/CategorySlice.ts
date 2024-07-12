@@ -6,7 +6,12 @@ const initialState: Category[] = [];
 const CategorySlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    addCategory: (state, action) => {
+      state.push(action.payload);
+    },
+  },
 });
 
-export default CategorySlice;
+export const { addCategory } = CategorySlice.actions;
+export default CategorySlice.reducer;
