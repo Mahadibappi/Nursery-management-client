@@ -1,8 +1,8 @@
 import { baseApi } from "../api/BaseApi";
 
-export const categoryApi = baseApi.injectEndpoints({
+const categoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getCategory: builder.query({
+    getAllCategory: builder.query({
       query: () => ({
         url: "/category",
         method: "GET",
@@ -10,3 +10,5 @@ export const categoryApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useGetAllCategoryQuery } = categoryApi;
