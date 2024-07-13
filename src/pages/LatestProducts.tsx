@@ -12,7 +12,7 @@ const LatestProducts = () => {
       </div>
       <div className="grid max-w-md gap-10 row-gap-8 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
         {products?.map((product, id) => (
-          <Link to={`/details/${id}`}>
+          <Link to={`/details/${product._id}`}>
             <div
               key={id}
               className="flex flex-col transition duration-300 bg-white rounded shadow-sm hover:shadow"
@@ -34,12 +34,6 @@ const LatestProducts = () => {
                     Rating : <span>{product.rating}</span>
                   </p>
                 </div>
-                <a
-                  href="/"
-                  className="inline-flex items-center justify-center w-full h-10 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                >
-                  Add to cart
-                </a>
               </div>
             </div>
           </Link>
