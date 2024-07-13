@@ -3,11 +3,12 @@ import App from "../App";
 import About from "../pages/About";
 import ProductDetail from "../pages/ProductDetail";
 import MainLayout from "../components/layout/MainLayout";
+import Cart from "../pages/Cart";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, // Use MainLayout for all routes
+    element: <MainLayout />,
     children: [
       {
         path: "/",
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "details/:id",

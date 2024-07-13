@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa6";
+import Cart from "../../pages/Cart";
+
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   return (
     <div>
       {" "}
@@ -73,7 +82,22 @@ const NavBar = () => {
                   </button>
                 </div>
               </li>
+              <li>
+                <div className="relative w-full max-w-xs mx-auto  mt-1 ml-6">
+                  <button
+                    onClick={toggleCart}
+                    className="absolute inset-y-0 right-0 flex items-center pr-1 "
+                  >
+                    <FaCartPlus
+                      size={30}
+                      className="text-green-500 ml-6 mt-3"
+                    />
+                  </button>
+                </div>
+              </li>
+              {isCartOpen && <Cart toggleCart={toggleCart} />}
             </ul>
+
             <div className="lg:hidden">
               <button
                 aria-label="Open Menu"
@@ -107,23 +131,8 @@ const NavBar = () => {
                           title="Company"
                           className="inline-flex items-center"
                         >
-                          <svg
-                            className="w-8 text-deep-purple-accent-400"
-                            viewBox="0 0 24 24"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeMiterlimit="10"
-                            stroke="currentColor"
-                            fill="none"
-                          >
-                            <rect x="3" y="1" width="7" height="12" />
-                            <rect x="3" y="17" width="7" height="6" />
-                            <rect x="14" y="1" width="7" height="6" />
-                            <rect x="14" y="11" width="7" height="12" />
-                          </svg>
                           <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                            Company
+                            TreeCare
                           </span>
                         </a>
                       </div>
@@ -186,16 +195,6 @@ const NavBar = () => {
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                           >
                             About us
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/"
-                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                            aria-label="Sign up"
-                            title="Sign up"
-                          >
-                            Sign up
                           </a>
                         </li>
                       </ul>
