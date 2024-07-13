@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Category } from "../../types";
+import { TCategory } from "../../types";
 
-const initialState: Category[] = [];
+const initialState: TCategory[] = [];
 
 const CategorySlice = createSlice({
   name: "category",
