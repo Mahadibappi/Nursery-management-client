@@ -7,8 +7,8 @@ const Header = () => {
   return (
     <div>
       <Banner />
-      <Category />
       <LatestProducts />
+      <Category />
       <ImageGallery />
     </div>
   );

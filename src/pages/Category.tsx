@@ -6,8 +6,6 @@ const Category = () => {
   if (data?.length > 0 && data[0]?.products.length > 0) {
     const products = data[0].products;
     products.map((product) => console.log(product.image));
-
-    console.log("products=>", products);
   }
 
   return (
@@ -23,17 +21,15 @@ const Category = () => {
           >
             <div className="relative w-full h-48">
               <img
-                src="https://www.thetreecenter.com/c/uploads/2023/05/DandyManColorWheelRhododendron-340x453.webp"
+                src={category.image}
                 className="object-cover w-full h-full rounded-t"
                 alt="Plan"
               />
             </div>
             <div className="flex flex-col justify-between flex-grow p-8 border border-t-0 rounded-b">
-              <Link to={"/about"}>
-                <button className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide bg-green-500 text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-                  {category.name}
-                </button>
-              </Link>
+              <button className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide bg-green-500 text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
+                {category.name}
+              </button>
             </div>
           </div>
         ))}
