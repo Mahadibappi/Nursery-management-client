@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetAllProductsQuery } from "../redux/features/products/ProductApi";
+import { useAppDispatch } from "../redux/hooks";
+import { addToCart } from "../redux/features/cart/CartSlice";
 
 const ProductDetail = () => {
+  const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const { data: products } = useGetAllProductsQuery(undefined);
-
+  const dispatch = useAppDispatch();
+  // product check
   const product = products?.find((product) => product._id === id);
 
   if (!product) {
     return <div>Product not found</div>;
   }
+  const handleDecrease = () => {
+    setQuantity(quantity - 1 < 1 ? 1 : quantity - 1);
+  };
+  const handleIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+  const hadnleAddtoCart = () => {
+    dispatch(
+      addToCart({
+        productId: product._id,
+        quantity: quantity,
+      })
+    );
+  };
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -53,21 +71,24 @@ const ProductDetail = () => {
               <div className="flex gap-2 justify-center items-center">
                 <button
                   className="bg-gray-100 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center"
-                  // onClick={handleMinusQuantity}
+                  onClick={handleDecrease}
                 >
                   -
                 </button>
                 <span className="bg-gray-200 h-full w-10 font-semibold text-xl rounded-xl flex justify-center items-center">
-                  {/* {quantity} */} 1
+                  {quantity}
                 </span>
                 <button
                   className="bg-gray-100 h-full w-10 font-bold text-xl rounded-xl flex justify-center items-center"
-                  // onClick={handlePlusQuantity}
+                  onClick={handleIncrease}
                 >
                   +
                 </button>
               </div>
-              <button className="inline-flex items-center justify-center w-full h-10 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
+              <button
+                onClick={hadnleAddtoCart}
+                className="inline-flex items-center justify-center w-full h-10 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+              >
                 Add to cart
               </button>
             </div>

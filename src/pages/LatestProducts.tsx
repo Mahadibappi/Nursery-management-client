@@ -22,7 +22,7 @@ const LatestProducts = () => {
                 />
               </div>
               <div className="flex flex-col justify-between flex-grow p-8 border border-t-0 rounded-b">
-                <div>
+                <div className="mb-3">
                   <div className="text-lg mb-3 font-semibold">
                     Name: {product.title}
                   </div>
@@ -33,6 +33,9 @@ const LatestProducts = () => {
                     Rating : <span>{product.rating}</span>
                   </p>
                 </div>
+                <button className="inline-flex items-center justify-center w-full h-10 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
+                  Shop Now
+                </button>
               </div>
             </div>
           </Link>
