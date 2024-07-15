@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import AddProduct from "./AddProduct";
 import { useGetAllProductsQuery } from "../../redux/features/products/ProductApi";
+import EditProduct from "./EditProduct";
+import DeleteProduct from "./DeleteProduct";
 
 const ProductManagement = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
@@ -13,7 +15,6 @@ const ProductManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortOrder, setSortOrder] = useState("relevance");
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
@@ -48,6 +49,10 @@ const ProductManagement = () => {
     closeDeleteModal();
   };
   // add modal functions
+  const addProduct = (newProduct) => {
+    // Add product logic here
+    closeAddModal();
+  };
   const openAddProductModal = () => {
     setIsAddModalOpen(true);
   };
@@ -81,7 +86,6 @@ const ProductManagement = () => {
           Add Product
         </button>
       </div>
-
       <div className="flex justify-between items-center mb-4">
         <input
           type="text"
@@ -91,7 +95,6 @@ const ProductManagement = () => {
           className="border p-2 w-full"
         />
       </div>
-
       <div className="flex justify-between items-center mb-4">
         <select
           value={selectedCategory}
@@ -111,7 +114,6 @@ const ProductManagement = () => {
           <option value="name">Name</option>
         </select>
       </div>
-
       <table className="min-w-full bg-white">
         <thead className="bg-gray-800 text-white">
           <tr>
@@ -153,7 +155,6 @@ const ProductManagement = () => {
           ))}
         </tbody>
       </table>
-
       <div className="flex justify-between items-center mt-4">
         <button className="bg-gray-300 px-4 py-2 rounded" onClick={prevPage}>
           Previous
@@ -165,8 +166,12 @@ const ProductManagement = () => {
           Next
         </button>
       </div>
-
-      <AddProduct isOpen={isAddModalOpen} closeAddModal={closeAddModal} />
+      {/* add product */}
+      <AddProduct
+        isOpen={isAddModalOpen}
+        closeAddModal={closeAddModal}
+        addProduct={addProduct}
+      />
 
       {/* Edit Product Modal */}
       {isEditModalOpen && (
@@ -187,106 +192,13 @@ const ProductManagement = () => {
                   Cancel
                 </button>
               </div>
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      Edit Product
-                    </h3>
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        value={editProduct.title}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            title: e.target.value,
-                          })
-                        }
-                        placeholder="Title"
-                        className="border p-2 w-full"
-                      />
-                      <input
-                        type="number"
-                        value={editProduct.price}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            price: e.target.value,
-                          })
-                        }
-                        placeholder="Price"
-                        className="border p-2 w-full mt-2"
-                      />
-                      <input
-                        type="text"
-                        value={editProduct.category}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            category: e.target.value,
-                          })
-                        }
-                        placeholder="Category"
-                        className="border p-2 w-full mt-2"
-                      />
-                      <input
-                        type="number"
-                        value={editProduct.quantity}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            quantity: e.target.value,
-                          })
-                        }
-                        placeholder="Quantity"
-                        className="border p-2 w-full mt-2"
-                      />
-                      <textarea
-                        value={editProduct.description}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            description: e.target.value,
-                          })
-                        }
-                        placeholder="Description"
-                        className="border p-2 w-full mt-2"
-                      />
-                      <input
-                        type="number"
-                        value={editProduct.rating}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            rating: e.target.value,
-                          })
-                        }
-                        placeholder="Rating"
-                        className="border p-2 w-full mt-2"
-                      />
-                      <input
-                        type="text"
-                        value={editProduct.image}
-                        onChange={(e) =>
-                          setEditProduct({
-                            ...editProduct,
-                            image: e.target.value,
-                          })
-                        }
-                        placeholder="Image URL"
-                        className="border p-2 w-full mt-2"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <EditProduct editProduct={editProduct} />
             </div>
           </div>
         </div>
       )}
-
       {/* Delete Confirmation Modal */}
+
       {isDeleteModalOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen px-4">
@@ -314,53 +226,6 @@ const ProductManagement = () => {
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
                         {editProduct.title}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Product Details */}
-      {selectedProduct && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen px-4">
-            <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                  onClick={() => setSelectedProduct(null)}
-                >
-                  Close
-                </button>
-              </div>
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      {selectedProduct.title}
-                    </h3>
-                    <img
-                      src={selectedProduct.image}
-                      alt={selectedProduct.title}
-                      className="h-64 w-full object-cover mt-4"
-                    />
-                    <div className="mt-4">
-                      <p>
-                        <strong>Price:</strong> ${selectedProduct.price}
-                      </p>
-                      <p>
-                        <strong>Category:</strong> {selectedProduct.category}
-                      </p>
-                      <p>
-                        <strong>Rating:</strong> {selectedProduct.rating}
-                      </p>
-                      <p>
-                        <strong>Description:</strong>{" "}
-                        {selectedProduct.description}
                       </p>
                     </div>
                   </div>

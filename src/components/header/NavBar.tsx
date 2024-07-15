@@ -45,25 +45,11 @@ const NavBar = () => {
                 Product
               </Link>
             </li>
-            <li>
-              <Link
-                to="/features"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Features
-              </Link>
+            <li className="font-medium cursor-pointer tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">
+              Features
             </li>
-            <li>
-              <Link
-                to="/pricing"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Pricing
-              </Link>
+            <li className="font-medium tracking-wide cursor-pointer text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">
+              Pricing
             </li>
             <li>
               <Link
@@ -174,26 +160,7 @@ const NavBar = () => {
                           Product
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          to="/features"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Features
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/pricing"
-                          aria-label="Product pricing"
-                          title="Product pricing"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Pricing
-                        </Link>
-                      </li>
+
                       <li>
                         <Link
                           to="/about"
