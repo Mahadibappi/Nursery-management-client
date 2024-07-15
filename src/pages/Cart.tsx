@@ -24,8 +24,8 @@ const Cart = ({ toggleCart }) => {
         <div className="p-4">
           <h2 className="text-xl text-white font-bold mb-4">Shopping Cart</h2>
           <div className="max-w-md lg:max-w-screen-lg sm:mx-auto">
-            <div className="flex flex-col  transition duration-300 bg-white rounded shadow-sm hover:shadow">
-              <div className="flex flex-col justify-between flex-grow p-10 border border-t-0 rounded-b">
+            <div className="flex flex-col  transition duration-300 text-white ">
+              <div className="flex flex-col justify-between flex-grow p-10 text-white  rounded-b">
                 {cartData.map((item, key) => (
                   <CartItem key={key} data={item} />
                 ))}

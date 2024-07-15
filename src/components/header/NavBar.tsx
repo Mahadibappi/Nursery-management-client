@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 import Cart from "../../pages/Cart";
+import { useAppSelector } from "../../redux/hooks";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const cart = useAppSelector((state) => state.cart.items);
+  useEffect(() => {
+    let total = 0;
+    cart.forEach((item) => (total += item.quantity));
+    setTotalQuantity(total);
+  }, [cart]);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -92,6 +100,12 @@ const NavBar = () => {
                       size={30}
                       className="text-green-500 ml-6 mt-3"
                     />
+                    <span
+                      className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm
+                      w-5 h-5 rounded-full flex justify-center items-center"
+                    >
+                      {totalQuantity}
+                    </span>
                   </button>
                 </div>
               </li>

@@ -3,6 +3,7 @@ import App from "../App";
 import About from "../pages/About";
 import ProductDetail from "../pages/ProductDetail";
 import MainLayout from "../components/layout/MainLayout";
+import LatestProducts from "../pages/LatestProducts";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "shop",
+        element: <LatestProducts />,
       },
 
       {
