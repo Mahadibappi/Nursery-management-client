@@ -4,6 +4,7 @@ import About from "../pages/About";
 import ProductDetail from "../pages/ProductDetail";
 import MainLayout from "../components/layout/MainLayout";
 import LatestProducts from "../pages/LatestProducts";
+import ProductManagement from "../pages/products/ProductManagement";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "shop",
         element: <LatestProducts />,
+      },
+      {
+        path: "product",
+        element: <ProductManagement />,
       },
 
       {
