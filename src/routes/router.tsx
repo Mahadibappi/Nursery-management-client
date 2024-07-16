@@ -5,6 +5,7 @@ import ProductDetail from "../pages/ProductDetail";
 import MainLayout from "../components/layout/MainLayout";
 import LatestProducts from "../pages/LatestProducts";
 import ProductManagement from "../pages/products/ProductManagement";
+import CheckOutForm from "../pages/products/CheckOutForm";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "product",
         element: <ProductManagement />,
+      },
+      {
+        path: "checkout",
+        element: <CheckOutForm />,
       },
 
       {

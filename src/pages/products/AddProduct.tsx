@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const AddProduct = ({ isOpen, closeAddModal, addProduct }) => {
   const [newProduct, setNewProduct] = useState({});
-
+  console.log(newProduct);
   return (
     isOpen && (
       <div className="fixed z-10 inset-0 overflow-y-auto">

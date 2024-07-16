@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import AddProduct from "./AddProduct";
 import { useGetAllProductsQuery } from "../../redux/features/products/ProductApi";
 import EditProduct from "./EditProduct";
-import DeleteProduct from "./DeleteProduct";
 
 const ProductManagement = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
