@@ -28,31 +28,11 @@ const ImageGallery = () => {
             alt=""
           />
         </div>
-        <div className="relative row-span-2">
-          <img
-            className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/2023/02/Huron_Dogwood_1-copy-jpg-340x453.webp"
-            alt=""
-          />
-        </div>
-        <div className="relative col-span-2 row-span-2">
-          <img
-            className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/rhodendron-chionoides-1-450x450.webp"
-            alt=""
-          />
-        </div>
+
         <div className="relative">
           <img
             className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/2023/02/Huron_Dogwood_1-copy-jpg-340x453.webp"
-            alt=""
-          />
-        </div>
-        <div className="relative">
-          <img
-            className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/rhodendron-chionoides-1-450x450.webp"
+            src="https://www.thetreecenter.com/c/uploads/limeglow-juniper-1-340x453.webp"
             alt=""
           />
         </div>
@@ -66,14 +46,14 @@ const ImageGallery = () => {
         <div className="relative">
           <img
             className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/rhodendron-chionoides-1-450x450.webp"
+            src="https://www.thetreecenter.com/c/uploads/pacific-blue-shore-juniper-1-340x453.png"
             alt=""
           />
         </div>
         <div className="relative col-span-2">
           <img
             className="absolute inset-0 w-full h-full object-cover rounded-lg"
-            src="https://www.thetreecenter.com/c/uploads/rhodendron-chionoides-1-450x450.webp"
+            src="https://www.thetreecenter.com/c/uploads/2022/02/Old_Gold_Juniper_1-copy-340x453.webp"
             alt=""
           />
         </div>
