@@ -2,6 +2,7 @@ import { TProduct } from "./../../../types/index";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: TProduct[] = [];
+console.log(initialState);
 
 const ProductSlice = createSlice({
   name: "products",
@@ -10,8 +11,11 @@ const ProductSlice = createSlice({
     getProduct: (state, action) => {
       state.push(action.payload);
     },
+    createProduct: (state, action) => {
+      state.push(action.payload);
+    },
   },
 });
 
-export const { getProduct } = ProductSlice.actions;
+export const { getProduct, createProduct } = ProductSlice.actions;
 export default ProductSlice.reducer;

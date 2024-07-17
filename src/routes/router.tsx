@@ -6,6 +6,7 @@ import MainLayout from "../components/layout/MainLayout";
 import LatestProducts from "../pages/LatestProducts";
 import ProductManagement from "../pages/products/ProductManagement";
 import CheckOutForm from "../pages/products/CheckOutForm";
+import Search from "../pages/products/Search";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "checkout",
         element: <CheckOutForm />,
+      },
+      {
+        path: "search",
+        element: <Search />,
       },
 
       {

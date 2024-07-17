@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import AddProduct from "./AddProduct";
 import { useGetAllProductsQuery } from "../../redux/features/products/ProductApi";
 import EditProduct from "./EditProduct";
 import DeleteProduct from "./DeleteProduct";
+import Search from "./Search";
+import { Link } from "react-router-dom";
 
 const ProductManagement = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
@@ -16,11 +18,22 @@ const ProductManagement = () => {
   const [sortOrder, setSortOrder] = useState("relevance");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return products; // No search query, return all products
+    }
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [products, searchQuery]);
+
   const openEditProductModal = (product) => {
     setEditProduct(product);
     setIsEditModalOpen(true);
   };
-
+  const deleteProduct = () => {
+    closeDeleteModal();
+  };
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
@@ -39,13 +52,8 @@ const ProductManagement = () => {
     setIsDeleteModalOpen(false);
   };
 
-  const deleteProduct = () => {
-    // Delete product logic here
-    closeDeleteModal();
-  };
   // add modal functions
-  const addProduct = (newProduct) => {
-    // Add product logic here
+  const addProduct = () => {
     closeAddModal();
   };
   const openAddProductModal = () => {
@@ -82,13 +90,7 @@ const ProductManagement = () => {
         </button>
       </div>
       <div className="flex justify-between items-center mb-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search products..."
-          className="border p-2 w-full"
-        />
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       </div>
       <div className="flex justify-between items-center mb-4">
         <select
@@ -120,8 +122,8 @@ const ProductManagement = () => {
           </tr>
         </thead>
         <tbody>
-          {products?.map((product) => (
-            <tr className="border-b" key={product.id}>
+          {filteredProducts?.map((product) => (
+            <tr className="border-b" key={product._id}>
               <td className="py-2">
                 <img
                   src={product.image}
