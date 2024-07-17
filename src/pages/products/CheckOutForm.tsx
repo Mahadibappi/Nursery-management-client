@@ -60,7 +60,7 @@ const CheckoutForm = () => {
             <div className="mb-4 tex-lg">
               <p className=" mb-2 text-black">Name: {item?.title}</p>
               <p className=" mb-2 text-black">
-                Price: ${item?.price * quantity}
+                Price: ${Math.floor(item?.price * quantity)}
               </p>
               <p className=" text-black">Quantity: {quantity}</p>
             </div>
