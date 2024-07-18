@@ -1,7 +1,15 @@
-import React from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/ProductApi";
 import { Link } from "react-router-dom";
-
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  category: string;
+  description: string;
+  rating: number;
+  image: string;
+  height: string;
+}
 const LatestProducts = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
 
@@ -11,7 +19,7 @@ const LatestProducts = () => {
         <h2>Products List </h2>
       </div>
       <div className="grid max-w-md gap-10 row-gap-8 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
-        {products?.map((product) => (
+        {products?.map((product: Product) => (
           <Link key={product._id} to={`/details/${product._id}`}>
             <div className="flex flex-col transition duration-300 bg-white rounded shadow-sm hover:shadow">
               <div className="relative w-full h-48">

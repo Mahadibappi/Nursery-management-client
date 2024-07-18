@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-
 import { createProduct as createProductAction } from "../../redux/features/products/ProductSlice";
 import { useCrateProductMutation } from "../../redux/features/products/ProductApi";
 
-const AddProduct = ({ isOpen, closeAddModal }) => {
-  const [newProduct, setNewProduct] = useState({
+interface AddProductProps {
+  isOpen: boolean;
+  closeAddModal: () => void;
+}
+
+interface Product {
+  title: string;
+  price: number;
+  description: string;
+  rating: number;
+  category: string;
+  quantity: number;
+  image: string;
+}
+
+const AddProduct: React.FC<AddProductProps> = ({ isOpen, closeAddModal }) => {
+  const [newProduct, setNewProduct] = useState<Product>({
     title: "",
     price: 0,
     description: "",
@@ -14,11 +28,13 @@ const AddProduct = ({ isOpen, closeAddModal }) => {
     quantity: 0,
     image: "",
   });
-  console.log(newProduct);
+
   const [createProductApi] = useCrateProductMutation();
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewProduct((prevProduct) => ({
       ...prevProduct,
@@ -26,11 +42,10 @@ const AddProduct = ({ isOpen, closeAddModal }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const response = await createProductApi(newProduct).unwrap();
-
       dispatch(createProductAction(response));
       closeAddModal();
     } catch (error) {

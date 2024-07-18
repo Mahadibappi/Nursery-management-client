@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/ProductApi";
 import { useNavigate } from "react-router-dom";
 

@@ -2,7 +2,10 @@ import React from "react";
 import { useAppSelector } from "../redux/hooks";
 import CartItem from "./CartItem";
 
-const Cart = ({ toggleCart }) => {
+interface CartProps {
+  toggleCart: () => void;
+}
+const Cart: React.FC<CartProps> = ({ toggleCart }) => {
   const cartData = useAppSelector((state) => state.cart.items);
   if (!cartData) {
     return <div>No Product added</div>;

@@ -1,11 +1,27 @@
-import { Link } from "react-router-dom";
 import { useGetAllCategoryQuery } from "../redux/features/CategoryApi";
+
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  category: string;
+  quantity: number;
+  description: string;
+  rating: number;
+  image: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+  products: Product[];
+}
 
 const Category = () => {
   const { data } = useGetAllCategoryQuery(undefined);
-  if (data?.length > 0 && data[0]?.products.length > 0) {
-    const products = data[0].products;
-    products.map((product) => console.log(product.image));
+
+  if (!data) {
+    return <div>Loading...</div>; // Handle loading state
   }
 
   return (
@@ -14,16 +30,17 @@ const Category = () => {
         <h2>Top Categories</h2>
       </div>
       <div className="grid max-w-md gap-10 row-gap-8 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
-        {data?.map((category) => (
+        {data.map((category: Category) => (
           <div
             key={category._id}
             className="flex flex-col transition duration-300 bg-white rounded shadow-sm hover:shadow"
           >
             <div className="relative w-full h-48">
+              {/* Assuming category.image exists */}
               <img
-                src={category.image}
+                src={category.products[0]?.image} // Example: Displaying the image of the first product
                 className="object-cover w-full h-full rounded-t"
-                alt="Plan"
+                alt="Category"
               />
             </div>
             <div className="flex flex-col justify-between flex-grow p-8 border border-t-0 rounded-b">

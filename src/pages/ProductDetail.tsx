@@ -3,25 +3,41 @@ import { useParams } from "react-router-dom";
 import { useGetAllProductsQuery } from "../redux/features/products/ProductApi";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/CartSlice";
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  category: string;
+  description: string;
+  rating: number;
+  image: string;
+  height: string;
+}
 
-const ProductDetail = () => {
-  const [quantity, setQuantity] = useState(1);
-  const { id } = useParams();
+const ProductDetail: React.FC = () => {
+  const [quantity, setQuantity] = useState<number>(1);
+  const { id } = useParams<Record<string, string | undefined>>();
   const { data: products } = useGetAllProductsQuery(undefined);
   const dispatch = useAppDispatch();
+
   // product check
-  const product = products?.find((product) => product._id === id);
+  const product = products?.find((product: Product) => product._id === id);
 
   if (!product) {
     return <div>Product not found</div>;
   }
+
   const handleDecrease = () => {
-    setQuantity(quantity - 1 < 1 ? 1 : quantity - 1);
+    setQuantity((prevQuantity) =>
+      prevQuantity - 1 < 1 ? 1 : prevQuantity - 1
+    );
   };
+
   const handleIncrease = () => {
-    setQuantity(quantity + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
-  const hadnleAddtoCart = () => {
+
+  const handleAddToCart = () => {
     dispatch(
       addToCart({
         productId: product._id,
@@ -36,8 +52,8 @@ const ProductDetail = () => {
         <h2>{product.title}</h2>
       </div>
       <div className="max-w-md lg:max-w-screen-lg sm:mx-auto">
-        <div className="flex lg:flex-row md:flex-col sm:flex-col  transition duration-300 bg-white rounded shadow-sm hover:shadow">
-          <div className="w-1/2 h-60 ">
+        <div className="flex lg:flex-row md:flex-col sm:flex-col transition duration-300 bg-white rounded shadow-sm hover:shadow">
+          <div className="w-1/2 h-60">
             <img
               src={product.image}
               className="object-cover w-full h-[300px] rounded-t"
@@ -46,10 +62,7 @@ const ProductDetail = () => {
           </div>
           <div className="flex flex-col justify-between flex-grow p-8 border border-t-0 rounded-b">
             <div className="lg:mt-0 sm:mt-10">
-              <div className="text-lg font-semibold">
-                {" "}
-                Name: {product.title}
-              </div>
+              <div className="text-lg font-semibold">Name: {product.title}</div>
               <div className="mt-1 mb-4 mr-1 text-md sm:text-2xl">
                 Price: ${product.price}
               </div>
@@ -59,7 +72,6 @@ const ProductDetail = () => {
               <p className="text-sm text-gray-900 flex items-center mb-2">
                 Rating: {product.rating}
               </p>
-
               <p className="text-sm text-gray-900 mb-2">
                 Height: {product.height}
               </p>
@@ -86,7 +98,7 @@ const ProductDetail = () => {
                 </button>
               </div>
               <button
-                onClick={hadnleAddtoCart}
+                onClick={handleAddToCart}
                 className="inline-flex items-center justify-center w-full h-10 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-500 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
               >
                 Add to cart

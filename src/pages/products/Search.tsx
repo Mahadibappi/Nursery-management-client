@@ -1,6 +1,9 @@
-import React from "react";
+interface SearchProps {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const Search = ({ searchQuery, setSearchQuery }) => {
+const Search: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
   return (
     <div className="flex justify-between items-center mb-4">
       <input

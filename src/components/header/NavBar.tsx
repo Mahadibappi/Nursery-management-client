@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa6";
+import React, { useEffect, useState } from "react";
+import { FaSearch, FaCartPlus } from "react-icons/fa";
 import Cart from "../../pages/Cart";
 import { useAppSelector } from "../../redux/hooks";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [totalQuantity, setTotalQuantity] = useState(0);
+interface NavBarProps {}
+
+const NavBar: React.FC<NavBarProps> = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const cart = useAppSelector((state) => state.cart.items);
+
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => (total += item.quantity));
@@ -64,7 +66,7 @@ const NavBar = () => {
           </ul>
           <ul className="flex items-center justify-center hidden space-x-8 lg:flex">
             <li>
-              <div className="relative w-full max-w-xs mx-auto  mt-2">
+              <div className="relative w-full max-w-xs mx-auto mt-2">
                 <input
                   type="text"
                   placeholder="Search products"
@@ -76,16 +78,13 @@ const NavBar = () => {
               </div>
             </li>
             <li>
-              <div className="relative w-full max-w-xs mx-auto  mt-1 ml-6">
+              <div className="relative w-full max-w-xs mx-auto mt-1 ml-6">
                 <button
                   onClick={toggleCart}
-                  className="absolute inset-y-0 right-0 flex items-center pr-1 "
+                  className="absolute inset-y-0 right-0 flex items-center pr-1"
                 >
                   <FaCartPlus size={30} className="text-green-500 ml-6 mt-3" />
-                  <span
-                    className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm
-                      w-5 h-5 rounded-full flex justify-center items-center"
-                  >
+                  <span className="absolute top-2/3 right-1/2 bg-red-500 text-white text-sm w-5 h-5 rounded-full flex justify-center items-center">
                     {totalQuantity}
                   </span>
                 </button>

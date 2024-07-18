@@ -1,61 +1,38 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import AddProduct from "./AddProduct";
 import { useGetAllProductsQuery } from "../../redux/features/products/ProductApi";
-import EditProduct from "./EditProduct";
-import DeleteProduct from "./DeleteProduct";
 import Search from "./Search";
-import { Link } from "react-router-dom";
 
-const ProductManagement = () => {
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  category: string;
+  quantity: number;
+  description: string;
+  rating: number;
+  image: string;
+}
+
+const ProductManagement: React.FC = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [editProduct, setEditProduct] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [sortOrder, setSortOrder] = useState("relevance");
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<string>("relevance");
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
   const filteredProducts = useMemo(() => {
+    if (!products) return [];
     if (!searchQuery.trim()) {
       return products; // No search query, return all products
     }
-    return products.filter((product) =>
+    return products.filter((product: Product) =>
       product.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [products, searchQuery]);
 
-  const openEditProductModal = (product) => {
-    setEditProduct(product);
-    setIsEditModalOpen(true);
-  };
-  const deleteProduct = () => {
-    closeDeleteModal();
-  };
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-  };
-
-  const updateProduct = () => {
-    // Update product logic here
-    closeEditModal();
-  };
-
-  const openDeleteConfirmation = (product) => {
-    setEditProduct(product);
-    setIsDeleteModalOpen(true);
-  };
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-  };
-
-  // add modal functions
-  const addProduct = () => {
-    closeAddModal();
-  };
   const openAddProductModal = () => {
     setIsAddModalOpen(true);
   };
@@ -67,15 +44,11 @@ const ProductManagement = () => {
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      // Load products for the previous page
     }
   };
 
   const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      // Load products for the next page
-    }
+    setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -106,8 +79,8 @@ const ProductManagement = () => {
           onChange={(e) => setSortOrder(e.target.value)}
           className="border p-2"
         >
-          <option value="relevance"> Price</option>
-          <option value="price">Relevance</option>
+          <option value="relevance">Relevance</option>
+          <option value="price">Price</option>
           <option value="name">Name</option>
         </select>
       </div>
@@ -122,7 +95,7 @@ const ProductManagement = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredProducts?.map((product) => (
+          {filteredProducts?.map((product: Product) => (
             <tr className="border-b" key={product._id}>
               <td className="py-2">
                 <img
@@ -135,16 +108,10 @@ const ProductManagement = () => {
               <td className="py-2">${product.price}</td>
               <td className="py-2">{product.category}</td>
               <td className="py-2">
-                <button
-                  className="bg-green-500 text-white px-2 py-1 rounded"
-                  onClick={() => openEditProductModal(product)}
-                >
+                <button className="bg-green-500 text-white px-2 py-1 rounded">
                   Edit
                 </button>
-                <button
-                  className="bg-red-500 text-white px-2 py-1 rounded ml-2"
-                  onClick={() => openDeleteConfirmation(product)}
-                >
+                <button className="bg-red-500 text-white px-2 py-1 rounded ml-2">
                   Delete
                 </button>
               </td>
@@ -156,35 +123,14 @@ const ProductManagement = () => {
         <button className="bg-gray-300 px-4 py-2 rounded" onClick={prevPage}>
           Previous
         </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
+        <span>Page {currentPage}</span>
         <button className="bg-gray-300 px-4 py-2 rounded" onClick={nextPage}>
           Next
         </button>
       </div>
-      {/* add product */}
-      <AddProduct
-        isOpen={isAddModalOpen}
-        closeAddModal={closeAddModal}
-        addProduct={addProduct}
-      />
-
+      {/* Add Product Modal */}
+      <AddProduct isOpen={isAddModalOpen} closeAddModal={closeAddModal} />
       {/* Edit Product Modal */}
-      <EditProduct
-        isOpen={isEditModalOpen}
-        closeEditModal={closeEditModal}
-        editProduct={editProduct}
-        setEditProduct={setEditProduct}
-        updateProduct={updateProduct}
-      />
-      {/* Delete Confirmation Modal */}
-      <DeleteProduct
-        isOpen={isDeleteModalOpen}
-        closeDeleteModal={deleteProduct}
-        deleteProduct={closeDeleteModal}
-        editProduct={editProduct}
-      />
     </div>
   );
 };
