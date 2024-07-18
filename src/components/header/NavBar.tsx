@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaSearch, FaCartPlus } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
 import Cart from "../../pages/Cart";
 import { useAppSelector } from "../../redux/hooks";
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                 title="Our product"
                 className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
               >
-                Product
+                Management
               </Link>
             </li>
             <li className="font-medium cursor-pointer tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400">
@@ -65,18 +65,6 @@ const NavBar: React.FC<NavBarProps> = () => {
             </li>
           </ul>
           <ul className="flex items-center justify-center hidden space-x-8 lg:flex">
-            <li>
-              <div className="relative w-full max-w-xs mx-auto mt-2">
-                <input
-                  type="text"
-                  placeholder="Search products"
-                  className="w-full py-2 pl-4 pr-8 text-md border rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-                <button className="absolute inset-y-0 right-0 flex items-center pr-4">
-                  <FaSearch size={18} className="text-green-500" />
-                </button>
-              </div>
-            </li>
             <li>
               <div className="relative w-full max-w-xs mx-auto mt-1 ml-6">
                 <button
@@ -156,7 +144,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                           title="Our product"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                          Product
+                          Management
                         </Link>
                       </li>
 

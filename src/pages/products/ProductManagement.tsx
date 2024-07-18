@@ -2,17 +2,7 @@ import { useState, useMemo } from "react";
 import AddProduct from "./AddProduct";
 import { useGetAllProductsQuery } from "../../redux/features/products/ProductApi";
 import Search from "./Search";
-
-interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  category: string;
-  quantity: number;
-  description: string;
-  rating: number;
-  image: string;
-}
+import { TProduct } from "../../types";
 
 const ProductManagement: React.FC = () => {
   const { data: products } = useGetAllProductsQuery(undefined);
@@ -28,7 +18,7 @@ const ProductManagement: React.FC = () => {
     if (!searchQuery.trim()) {
       return products; // No search query, return all products
     }
-    return products.filter((product: Product) =>
+    return products.filter((product: TProduct) =>
       product.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [products, searchQuery]);
@@ -95,7 +85,7 @@ const ProductManagement: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredProducts?.map((product: Product) => (
+          {filteredProducts?.map((product: TProduct) => (
             <tr className="border-b" key={product._id}>
               <td className="py-2">
                 <img

@@ -1,20 +1,9 @@
 import { useGetAllCategoryQuery } from "../redux/features/CategoryApi";
 
-interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  category: string;
-  quantity: number;
-  description: string;
-  rating: number;
-  image: string;
-}
-
 interface Category {
   _id: string;
   name: string;
-  products: Product[];
+  image: string;
 }
 
 const Category = () => {
@@ -36,9 +25,8 @@ const Category = () => {
             className="flex flex-col transition duration-300 bg-white rounded shadow-sm hover:shadow"
           >
             <div className="relative w-full h-48">
-              {/* Assuming category.image exists */}
               <img
-                src={category.products[0]?.image} // Example: Displaying the image of the first product
+                src={category.image}
                 className="object-cover w-full h-full rounded-t"
                 alt="Category"
               />

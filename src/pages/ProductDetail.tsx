@@ -3,16 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetAllProductsQuery } from "../redux/features/products/ProductApi";
 import { useAppDispatch } from "../redux/hooks";
 import { addToCart } from "../redux/features/cart/CartSlice";
-interface Product {
-  _id: string;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  rating: number;
-  image: string;
-  height: string;
-}
+import { TProduct } from "../types";
 
 const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
@@ -21,7 +12,7 @@ const ProductDetail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   // product check
-  const product = products?.find((product: Product) => product._id === id);
+  const product = products?.find((product: TProduct) => product._id === id);
 
   if (!product) {
     return <div>Product not found</div>;
